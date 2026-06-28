@@ -1,0 +1,45 @@
+============================================================
+  5.2 Model Deployment Guide
+  部署方案 (2026-06-29)
+============================================================
+
+[方案一] Ollama 本地部署
+  1. 安装 Ollama: https://ollama.com/download
+  2. 拉取基座模型:
+     ollama pull qwen3:1.7b
+  3. 创建 Modelfile (载入LoRA权重):
+     FROM ./models/Qwen3.7-1.7B-Instruct
+     ADAPTER ./models/lora/adapter
+  4. 构建自定义模型:
+     ollama create kb-agent-v1 -f Modelfile
+  5. 启动服务:
+     ollama serve
+  6. 测试:
+     curl http://localhost:11434/api/generate -d '{"model":"kb-agent-v1","prompt":"What is MCP?"}'
+
+[方案二] FastAPI API 服务
+  from fastapi import FastAPI
+  from agent_project.app import KnowledgeBaseAgent
+  app = FastAPI()
+  
+  @app.post("/ask")
+  async def ask(question: str):
+      return agent.ask(question)
+  
+  # 启动: uvicorn deploy.api:app --host 0.0.0.0 --port 8000
+
+[方案三] Docker 容器化
+  FROM python:3.10-slim
+  COPY . /app
+  RUN pip install -r requirements.txt
+  CMD ["uvicorn", "deploy.api:app", "--host", "0.0.0.0", "--port", "8000"]
+  
+  # docker build -t kb-agent .
+  # docker run -p 8000:8000 kb-agent
+
+============================================================
+  硬件需求:
+  - Ollama: 4GB+ VRAM (qwen3:1.7b Q4_K_M)
+  - FastAPI: CPU即可 (调用云端API)
+  - Docker: 8GB+ RAM
+============================================================

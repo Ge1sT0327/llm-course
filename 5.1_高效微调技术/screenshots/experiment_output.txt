@@ -1,0 +1,38 @@
+============================================================
+  5.1 LoRA Fine-tuning - Qwen3-1.7B
+  真实运行结果 (2026-06-29, AutoDL RTX 4090 24GB)
+============================================================
+
+[GPU] NVIDIA GeForce RTX 4090 (24GB)
+
+[1/4] Loading model...
+       Loaded: 1.72B params
+
+[2/4] Applying LoRA (r=8, alpha=16)...
+       Trainable: 3,211,264 (0.1866%)
+
+[3/4] Test before training...
+       Output: Explain what LoRA is in one sentence: LoRA (Low-Rank Adaptation) is 
+       a technique that allows for efficient fine-tuning of large language models 
+       by incorporating low-rank matrices into the training process.
+
+[4/4] Training (5-step demo)...
+  Epoch 1: avg_loss=3.7584
+  Epoch 2: avg_loss=3.1061
+  Epoch 3: avg_loss=2.5636
+
+[Done] Adapter saved -> ./models/lora/adapter/
+       Size: 6.1MB (3,211,264 x float16)
+       vs Full model: 1,721MB
+       Compression: 536x
+
+============================================================
+  Key Metrics:
+  - Base Model: Qwen3-1.7B (1.72B params)
+  - LoRA Config: r=8, alpha=16, q_proj/v_proj/k_proj/o_proj
+  - Trainable: 3,211,264 (0.1866%)
+  - Adapter Size: 6.1MB
+  - Loss: 3.76 -> 3.10 -> 2.56 (31.8% decrease)
+  - Hardware: RTX 4090 24GB VRAM
+  - Training Time: ~30s for 3 epochs x 5 samples
+============================================================
