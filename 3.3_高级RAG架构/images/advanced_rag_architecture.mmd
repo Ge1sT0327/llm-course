@@ -1,0 +1,11 @@
+graph TB
+    QUERY["用户查询"] --> REWRITE["查询重写/扩展"]
+    REWRITE --> BM25["BM25 关键词检索<br/>(精确匹配)"]
+    REWRITE --> VECTOR["向量语义检索<br/>(BGE Embedding + FAISS)"]
+    BM25 --> RRF["RRF 倒数排名融合"]
+    VECTOR --> RRF
+    RRF --> RERANK["Embedding 重排序<br/>(Cross-Encoder)"]
+    RERANK --> ASSESS["自反思质量评估"]
+    ASSESS -->|"score>=0.3"| LLM["LLM 生成答案"]
+    ASSESS -->|"score<0.3"| FALLBACK["降级策略<br/>重写查询/扩大检索/备用源"]
+    FALLBACK --> REWRITE

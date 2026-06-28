@@ -1,0 +1,252 @@
+[
+  {
+    "instruction": "什么是Transformer架构?",
+    "input": "",
+    "output": "Transformer由Vaswani等人在2017年提出，核心是Self-Attention机制。它完全并行化处理序列数据，由编码器和解码器堆叠而成，每个层包含Multi-Head Attention和Feed-Forward Network。是现代大语言模型的基础架构。"
+  },
+  {
+    "instruction": "解释RAG系统",
+    "input": "",
+    "output": "RAG(Retrieval-Augmented Generation)检索增强生成，先检索相关文档再让LLM基于文档生成答案。2026年最佳实践：混合检索(BM25+向量)+RRF融合+Cross-Encoder重排序+Self-RAG自反思评估。"
+  },
+  {
+    "instruction": "什么是LoRA微调?",
+    "input": "",
+    "output": "LoRA(Low-Rank Adaptation)通过训练低秩分解矩阵实现高效参数微调。在Qwen3.7-1.7B上仅需训练约0.09%的原始参数，大幅降低显存需求。典型配置：r=8, alpha=16, target_modules=[q_proj,v_proj]"
+  },
+  {
+    "instruction": "DeepSeek V4的特点",
+    "input": "",
+    "output": "DeepSeek V4于2026年4月发布，1.6T参数MoE架构(37B活跃参数)。全栈昇腾910C训练，API成本约0.87元/百万输出tokens。在SWE-bench代码生成达到80.6%通过率。"
+  },
+  {
+    "instruction": "MCP协议是什么?",
+    "input": "",
+    "output": "MCP(Model Context Protocol)是AI Agent标准化协议，2025年12月捐赠Linux Foundation。定义三种原语：Tool(操作工具)、Resource(只读数据)、Prompt(可复用模板)。10,000+服务器，9700万月SDK下载量。"
+  },
+  {
+    "instruction": "请介绍向量检索的基本概念和应用场景",
+    "input": "",
+    "output": "向量检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，向量检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/向量检索.py模块。"
+  },
+  {
+    "instruction": "请介绍混合检索的基本概念和应用场景",
+    "input": "",
+    "output": "混合检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，混合检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/混合检索.py模块。"
+  },
+  {
+    "instruction": "请介绍BM25算法的基本概念和应用场景",
+    "input": "",
+    "output": "BM25算法是大模型应用开发中的重要概念。在智能知识库Agent项目中，BM25算法被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/bm25算法.py模块。"
+  },
+  {
+    "instruction": "请介绍RRF融合的基本概念和应用场景",
+    "input": "",
+    "output": "RRF融合是大模型应用开发中的重要概念。在智能知识库Agent项目中，RRF融合被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/rrf融合.py模块。"
+  },
+  {
+    "instruction": "请介绍Qwen3.7的基本概念和应用场景",
+    "input": "",
+    "output": "Qwen3.7是大模型应用开发中的重要概念。在智能知识库Agent项目中，Qwen3.7被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/qwen3.7.py模块。"
+  },
+  {
+    "instruction": "请介绍GLM-5.2的基本概念和应用场景",
+    "input": "",
+    "output": "GLM-5.2是大模型应用开发中的重要概念。在智能知识库Agent项目中，GLM-5.2被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/glm-5.2.py模块。"
+  },
+  {
+    "instruction": "请介绍Function Calling的基本概念和应用场景",
+    "input": "",
+    "output": "Function Calling是大模型应用开发中的重要概念。在智能知识库Agent项目中，Function Calling被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/function_calling.py模块。"
+  },
+  {
+    "instruction": "请介绍Prompt Engineering的基本概念和应用场景",
+    "input": "",
+    "output": "Prompt Engineering是大模型应用开发中的重要概念。在智能知识库Agent项目中，Prompt Engineering被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/prompt_engineering.py模块。"
+  },
+  {
+    "instruction": "请介绍知识库的基本概念和应用场景",
+    "input": "",
+    "output": "知识库是大模型应用开发中的重要概念。在智能知识库Agent项目中，知识库被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/知识库.py模块。"
+  },
+  {
+    "instruction": "请介绍语义搜索的基本概念和应用场景",
+    "input": "",
+    "output": "语义搜索是大模型应用开发中的重要概念。在智能知识库Agent项目中，语义搜索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/语义搜索.py模块。"
+  },
+  {
+    "instruction": "请介绍向量检索的基本概念和应用场景",
+    "input": "",
+    "output": "向量检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，向量检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/向量检索.py模块。"
+  },
+  {
+    "instruction": "请介绍混合检索的基本概念和应用场景",
+    "input": "",
+    "output": "混合检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，混合检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/混合检索.py模块。"
+  },
+  {
+    "instruction": "请介绍BM25算法的基本概念和应用场景",
+    "input": "",
+    "output": "BM25算法是大模型应用开发中的重要概念。在智能知识库Agent项目中，BM25算法被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/bm25算法.py模块。"
+  },
+  {
+    "instruction": "请介绍RRF融合的基本概念和应用场景",
+    "input": "",
+    "output": "RRF融合是大模型应用开发中的重要概念。在智能知识库Agent项目中，RRF融合被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/rrf融合.py模块。"
+  },
+  {
+    "instruction": "请介绍Qwen3.7的基本概念和应用场景",
+    "input": "",
+    "output": "Qwen3.7是大模型应用开发中的重要概念。在智能知识库Agent项目中，Qwen3.7被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/qwen3.7.py模块。"
+  },
+  {
+    "instruction": "请介绍GLM-5.2的基本概念和应用场景",
+    "input": "",
+    "output": "GLM-5.2是大模型应用开发中的重要概念。在智能知识库Agent项目中，GLM-5.2被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/glm-5.2.py模块。"
+  },
+  {
+    "instruction": "请介绍Function Calling的基本概念和应用场景",
+    "input": "",
+    "output": "Function Calling是大模型应用开发中的重要概念。在智能知识库Agent项目中，Function Calling被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/function_calling.py模块。"
+  },
+  {
+    "instruction": "请介绍Prompt Engineering的基本概念和应用场景",
+    "input": "",
+    "output": "Prompt Engineering是大模型应用开发中的重要概念。在智能知识库Agent项目中，Prompt Engineering被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/prompt_engineering.py模块。"
+  },
+  {
+    "instruction": "请介绍知识库的基本概念和应用场景",
+    "input": "",
+    "output": "知识库是大模型应用开发中的重要概念。在智能知识库Agent项目中，知识库被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/知识库.py模块。"
+  },
+  {
+    "instruction": "请介绍语义搜索的基本概念和应用场景",
+    "input": "",
+    "output": "语义搜索是大模型应用开发中的重要概念。在智能知识库Agent项目中，语义搜索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/语义搜索.py模块。"
+  },
+  {
+    "instruction": "请介绍向量检索的基本概念和应用场景",
+    "input": "",
+    "output": "向量检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，向量检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/向量检索.py模块。"
+  },
+  {
+    "instruction": "请介绍混合检索的基本概念和应用场景",
+    "input": "",
+    "output": "混合检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，混合检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/混合检索.py模块。"
+  },
+  {
+    "instruction": "请介绍BM25算法的基本概念和应用场景",
+    "input": "",
+    "output": "BM25算法是大模型应用开发中的重要概念。在智能知识库Agent项目中，BM25算法被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/bm25算法.py模块。"
+  },
+  {
+    "instruction": "请介绍RRF融合的基本概念和应用场景",
+    "input": "",
+    "output": "RRF融合是大模型应用开发中的重要概念。在智能知识库Agent项目中，RRF融合被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/rrf融合.py模块。"
+  },
+  {
+    "instruction": "请介绍Qwen3.7的基本概念和应用场景",
+    "input": "",
+    "output": "Qwen3.7是大模型应用开发中的重要概念。在智能知识库Agent项目中，Qwen3.7被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/qwen3.7.py模块。"
+  },
+  {
+    "instruction": "请介绍GLM-5.2的基本概念和应用场景",
+    "input": "",
+    "output": "GLM-5.2是大模型应用开发中的重要概念。在智能知识库Agent项目中，GLM-5.2被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/glm-5.2.py模块。"
+  },
+  {
+    "instruction": "请介绍Function Calling的基本概念和应用场景",
+    "input": "",
+    "output": "Function Calling是大模型应用开发中的重要概念。在智能知识库Agent项目中，Function Calling被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/function_calling.py模块。"
+  },
+  {
+    "instruction": "请介绍Prompt Engineering的基本概念和应用场景",
+    "input": "",
+    "output": "Prompt Engineering是大模型应用开发中的重要概念。在智能知识库Agent项目中，Prompt Engineering被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/prompt_engineering.py模块。"
+  },
+  {
+    "instruction": "请介绍知识库的基本概念和应用场景",
+    "input": "",
+    "output": "知识库是大模型应用开发中的重要概念。在智能知识库Agent项目中，知识库被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/知识库.py模块。"
+  },
+  {
+    "instruction": "请介绍语义搜索的基本概念和应用场景",
+    "input": "",
+    "output": "语义搜索是大模型应用开发中的重要概念。在智能知识库Agent项目中，语义搜索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/语义搜索.py模块。"
+  },
+  {
+    "instruction": "请介绍向量检索的基本概念和应用场景",
+    "input": "",
+    "output": "向量检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，向量检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/向量检索.py模块。"
+  },
+  {
+    "instruction": "请介绍混合检索的基本概念和应用场景",
+    "input": "",
+    "output": "混合检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，混合检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/混合检索.py模块。"
+  },
+  {
+    "instruction": "请介绍BM25算法的基本概念和应用场景",
+    "input": "",
+    "output": "BM25算法是大模型应用开发中的重要概念。在智能知识库Agent项目中，BM25算法被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/bm25算法.py模块。"
+  },
+  {
+    "instruction": "请介绍RRF融合的基本概念和应用场景",
+    "input": "",
+    "output": "RRF融合是大模型应用开发中的重要概念。在智能知识库Agent项目中，RRF融合被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/rrf融合.py模块。"
+  },
+  {
+    "instruction": "请介绍Qwen3.7的基本概念和应用场景",
+    "input": "",
+    "output": "Qwen3.7是大模型应用开发中的重要概念。在智能知识库Agent项目中，Qwen3.7被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/qwen3.7.py模块。"
+  },
+  {
+    "instruction": "请介绍GLM-5.2的基本概念和应用场景",
+    "input": "",
+    "output": "GLM-5.2是大模型应用开发中的重要概念。在智能知识库Agent项目中，GLM-5.2被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/glm-5.2.py模块。"
+  },
+  {
+    "instruction": "请介绍Function Calling的基本概念和应用场景",
+    "input": "",
+    "output": "Function Calling是大模型应用开发中的重要概念。在智能知识库Agent项目中，Function Calling被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/function_calling.py模块。"
+  },
+  {
+    "instruction": "请介绍Prompt Engineering的基本概念和应用场景",
+    "input": "",
+    "output": "Prompt Engineering是大模型应用开发中的重要概念。在智能知识库Agent项目中，Prompt Engineering被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/prompt_engineering.py模块。"
+  },
+  {
+    "instruction": "请介绍知识库的基本概念和应用场景",
+    "input": "",
+    "output": "知识库是大模型应用开发中的重要概念。在智能知识库Agent项目中，知识库被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/知识库.py模块。"
+  },
+  {
+    "instruction": "请介绍语义搜索的基本概念和应用场景",
+    "input": "",
+    "output": "语义搜索是大模型应用开发中的重要概念。在智能知识库Agent项目中，语义搜索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/语义搜索.py模块。"
+  },
+  {
+    "instruction": "请介绍向量检索的基本概念和应用场景",
+    "input": "",
+    "output": "向量检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，向量检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/向量检索.py模块。"
+  },
+  {
+    "instruction": "请介绍混合检索的基本概念和应用场景",
+    "input": "",
+    "output": "混合检索是大模型应用开发中的重要概念。在智能知识库Agent项目中，混合检索被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/混合检索.py模块。"
+  },
+  {
+    "instruction": "请介绍BM25算法的基本概念和应用场景",
+    "input": "",
+    "output": "BM25算法是大模型应用开发中的重要概念。在智能知识库Agent项目中，BM25算法被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/bm25算法.py模块。"
+  },
+  {
+    "instruction": "请介绍RRF融合的基本概念和应用场景",
+    "input": "",
+    "output": "RRF融合是大模型应用开发中的重要概念。在智能知识库Agent项目中，RRF融合被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/rrf融合.py模块。"
+  },
+  {
+    "instruction": "请介绍Qwen3.7的基本概念和应用场景",
+    "input": "",
+    "output": "Qwen3.7是大模型应用开发中的重要概念。在智能知识库Agent项目中，Qwen3.7被广泛应用于提升系统的检索准确性和回答质量。具体实现可参考agent_project/qwen3.7.py模块。"
+  }
+]

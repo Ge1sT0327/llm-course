@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Function Calling</title><style>body{font-family:Consolas,monospace;background:#1c1c1c;color:#ccc;padding:30px;white-space:pre-wrap;line-height:1.6}</style></head><body><pre>实验模型: DeepSeek V4 (支持 Function Calling)
+执行时间: 2026-06-28
+
+============================================================
+  Demo 1: Function Calling 工具调用
+============================================================
+
+  用户: 请问深圳今天天气怎么样?
+  -&gt; 调用工具: get_weather({"city": "深圳", "unit": "celsius"})
+  模型决定: 需要调用工具获取信息
+
+  用户: 帮我搜一下有没有3000块以内的机械键盘
+  -&gt; 调用工具: search_products({"keyword": "机械键盘", "max_price": 3000})
+  模型决定: 需要调用工具获取信息
+
+  用户: 你好，今天星期几?
+  回复: 你好！今天是2025年7月1日，星期二。😊
+
+有什么我可以帮你的吗？
+  模型决定: 直接回答, 无需工具
+
+============================================================
+  Demo 2: 多工具协同调度
+============================================================
+用户: 深圳今天热不热? 另外帮我查一下机械键盘的价格
+  工具get_weather: {"city": "深圳", "temp": 30, "humidity": 75, "condition": "雷阵雨"}
+  工具search_products: {"results": [{"name": "机械键盘Pro", "price": 299}, {"name": "机械键盘Lite", "price": 199}]}
+
+  最终回复: 深圳今天30°C，有雷阵雨，体感较热，建议注意防暑和带伞。机械键盘方面，Pro款299元，Lite款199元，供参考。
+
+============================================================
+  2.3 Function Calling 实验完成!
+</pre></body></html>

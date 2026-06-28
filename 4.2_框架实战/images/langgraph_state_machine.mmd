@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> process_input
+    process_input --> llm_reasoning
+    llm_reasoning --> tool_execution: need_tool
+    llm_reasoning --> generate_response: done
+    tool_execution --> llm_reasoning
+    generate_response --> [*]

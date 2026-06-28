@@ -1,0 +1,51 @@
+实验: 项目实战 - RAG知识库问答系统
+执行时间: 2026-06-28
+
+============================================================
+  Demo 1: RAG系统架构
+============================================================
+
+RAG知识库问答系统架构:
+  User Query -> Hybrid Retrieval -> Reranking -> LLM Generation -> Answer
+       |              |                  |              |              |
+   输入处理      BM25+Vector         Cross-Encoder    Qwen/DeepSeek  引用溯源
+                  RRF融合            重排序Top-5      置信度评分
+
+============================================================
+  Demo 2: 知识库构建
+============================================================
+  [0] Transformer: Transformer由Vaswani等人于2017年提出, 核心是Self-Attention机制。完全抛弃了RNN的...
+  [1] RAG: RAG(Retrieval-Augmented Generation)检索增强生成, 先检索相关文档再让LLM基于文档生...
+  [2] DeepSeek V4: DeepSeek V4于2026年4月发布, 1.6T参数MoE架构, 37B活跃参数。全栈昇腾910C训练, 代码生成...
+  [3] MCP: MCP(Model Context Protocol)是AI Agent标准化协议。2025年12月捐赠Linux Fo...
+  [4] Qwen3.7: Qwen3.7-Max于2026年5月发布, 235B-A22B MoE架构。支持1M上下文, 原生多模态(视觉+音频+...
+
+============================================================
+  Demo 3: 检索演示
+============================================================
+
+查询: 什么是DeepSeek V4?
+  #1 [DeepSeek V4] score=8 DeepSeek V4于2026年4月发布, 1.6T参数MoE架构, 37B活跃参数。全栈昇腾91...
+  #2 [Transformer] score=5 Transformer由Vaswani等人于2017年提出, 核心是Self-Attention机制...
+
+查询: MCP协议是什么?
+  #1 [MCP] score=6 MCP(Model Context Protocol)是AI Agent标准化协议。2025年12月...
+  #2 [DeepSeek V4] score=2 DeepSeek V4于2026年4月发布, 1.6T参数MoE架构, 37B活跃参数。全栈昇腾91...
+
+查询: Transformer架构的核心是什么?
+  #1 [Transformer] score=14 Transformer由Vaswani等人于2017年提出, 核心是Self-Attention机制...
+  #2 [MCP] score=9 MCP(Model Context Protocol)是AI Agent标准化协议。2025年12月...
+
+============================================================
+  Demo 4: 系统监控
+============================================================
+  总查询数: 1250
+  缓存命中率: 68%
+  平均检索延迟: 45ms
+  平均生成延迟: 1.2s
+  知识库文档数: 5
+  向量维度: 512
+  Up时间: 99.8%
+
+============================================================
+  6.3 项目实战实验完成!

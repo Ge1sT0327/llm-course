@@ -1,0 +1,13 @@
+graph LR
+    subgraph "原始前向传播 (冻结)"
+        X["输入 x"] --> W0["W0 (预训练权重)"]
+        W0 --> H1["h = W0·x"]
+    end
+    subgraph "LoRA 旁路 (仅训练这2个矩阵)"
+        X2["输入 x"] --> A["A (r×d_in, 降维)"]
+        A --> B["B (d_out×r, 升维)"]
+        B --> SCALE["× (α/r) 缩放"]
+    end
+    H1 --> ADD["+"]
+    SCALE --> ADD
+    ADD --> OUTPUT["h = W0·x + (α/r)·B·A·x"]

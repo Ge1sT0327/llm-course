@@ -1,0 +1,57 @@
+# API密钥 - 绝对不能提交
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 虚拟环境
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# 模型文件
+*.bin
+*.safetensors
+*.pth
+*.pt
+models/
+checkpoints/
+
+# 临时文件
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+package-lock.json
+
+# Ruff cache
+.ruff_cache/
+
+# Gen scripts
+generate_notebooks.py
+generate_notebooks_2.py
+generate_notebooks_3.py
+generate_refs.py
+
+# Large outputs
+all_experiments*.txt
+all_experiments*.html
+all_experiments*.png
+
+# Sandbox
+sandbox_workspace/

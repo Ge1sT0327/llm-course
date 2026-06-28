@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>框架实战</title><style>body{font-family:Consolas,monospace;background:#1c1c1c;color:#ccc;padding:30px;white-space:pre-wrap;line-height:1.6}</style></head><body><pre>实验: LangChain &amp; LangGraph 框架实战
+执行时间: 2026-06-28
+LLM: DeepSeek V4
+
+============================================================
+  Demo 1: LangChain Runnable 管道模式
+============================================================
+LangChain demo: 1 validation error for ChatOpenAI
+base_url
+  Input should be a valid string [type=string_type, input_value=URL('https://api.deepseek.com'), input_type=URL]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+(使用简化实现)
+Traceback (most recent call last):
+  File "D:\ANACONDA\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "D:\ANACONDA\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\http_proxy.py", line 288, in handle_request
+    connect_response = self._connection.handle_request(
+        connect_request
+    )
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\ANACONDA\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "D:\ANACONDA\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\ANACONDA\Lib\site-packages\openai\_base_client.py", line 1037, in request
+    response = self._send_request(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "D:\ANACONDA\Lib\site-packages\openai\_client.py", line 440, in _send_request
+    return self._send_with_auth_retry(request, stream=stream, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\ANACONDA\Lib\site-packages\openai\_client.py", line 418, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+  File "D:\ANACONDA\Lib\site-packages\openai\_base_client.py", line 964, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\ANACONDA\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...&lt;2 lines&gt;...
+        history=[],
+    )
+  File "D:\ANACONDA\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "D:\ANACONDA\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\ANACONDA\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\ANACONDA\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\ANACONDA\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "D:\ANACONDA\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 40, in &lt;module&gt;
+  File "G:\CLAUDE CODE_PROJECT\SHIXI\course\1.2.2_ʵ��ģ������\client.py", line 104, in chat
+    response = self.client.chat.completions.create(**kwargs)
+  File "D:\ANACONDA\Lib\site-packages\openai\_utils\_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+  File "D:\ANACONDA\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1251, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...&lt;52 lines&gt;...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\ANACONDA\Lib\site-packages\openai\_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\ANACONDA\Lib\site-packages\openai\_base_client.py", line 1072, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+</pre></body></html>

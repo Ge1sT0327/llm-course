@@ -1,0 +1,16 @@
+graph TB
+    subgraph "1.2.2 实验模型配置"
+        ENV[".env 文件<br/>API Keys"] --> PROVIDERS["providers.py<br/>7个提供商注册表"]
+        PROVIDERS --> CLIENT["client.py<br/>统一LLMClient"]
+        CLIENT --> GET["get_client()<br/>工厂函数"]
+        VERIFY["verify.py<br/>诊断工具"] --> PROVIDERS
+    end
+    GET --> EXP1["1.4 Prompt实验"]
+    GET --> EXP2["2.1 对话系统实验"]
+    GET --> EXP3["2.3 Function Calling实验"]
+    GET --> EXP4["4.1 Agent实验"]
+    GET --> EXP5["4.2 框架实战"]
+
+    style ENV fill:#e1f5fe
+    style GET fill:#e8f5e9
+    style VERIFY fill:#fff3e0

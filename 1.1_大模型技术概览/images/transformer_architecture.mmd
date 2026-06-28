@@ -1,0 +1,13 @@
+graph TB
+    subgraph "Transformer 架构 (解码器)"
+        INPUT["输入 Tokens"] --> EMB["Token Embedding + 位置编码"]
+        EMB --> BLOCK1["Transformer Block x N"]
+        subgraph BLOCK1["Transformer Block"]
+            ATTN["Multi-Head Self-Attention"] --> ADD1["残差连接 + LayerNorm"]
+            ADD1 --> FFN["Feed-Forward Network"]
+            FFN --> ADD2["残差连接 + LayerNorm"]
+        end
+        BLOCK1 --> LINEAR["Linear 投影"]
+        LINEAR --> SOFTMAX["Softmax"]
+        SOFTMAX --> OUTPUT["下一个 Token 概率分布"]
+    end

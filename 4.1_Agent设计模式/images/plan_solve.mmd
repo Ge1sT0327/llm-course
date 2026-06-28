@@ -1,0 +1,7 @@
+graph TB
+    QUERY["用户问题"] --> PLAN["PLAN 阶段<br/>分解为步骤序列"]
+    PLAN --> S1["Step 1: 执行"]
+    S1 --> S2["Step 2: 执行"]
+    S2 --> S3["Step N: 执行"]
+    S3 --> SYNTH["SYNTHESIZE 阶段<br/>综合所有结果"]
+    SYNTH --> ANSWER["最终答案"]

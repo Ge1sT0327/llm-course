@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Agent设计模式</title><style>body{font-family:Consolas,monospace;background:#1c1c1c;color:#ccc;padding:30px;white-space:pre-wrap;line-height:1.6}</style></head><body><pre>实验模型: DeepSeek V4
+执行时间: 2026-06-28
+
+============================================================
+  Demo 1: ReAct (Reasoning + Acting) 模式
+============================================================
+
+ReAct模式: Thought(思考) -&gt; Action(行动) -&gt; Observation(观察) 循环
+
+示例问题: "帮我搜索一下什么是MCP协议, 然后计算 25*4+10"
+
+[轮次1]
+  Thought: 需要先搜索MCP协议的定义, 然后计算数学表达式
+  Action: search("MCP协议")
+  Observation: MCP(Model Context Protocol)是Anthropic提出的AI Agent标准化协议
+              2025年捐赠给Linux Foundation, 截至2026年有10000+服务器
+
+[轮次2]
+  Thought: 已获得MCP信息, 现在需要计算25*4+10
+  Action: calculator("25*4+10")
+  Observation: 25*4+10 = 110
+
+[轮次3]
+  Thought: 两个任务都完成了
+  Final Answer: MCP是AI Agent标准化协议, 已捐赠Linux Foundation。
+               25*4+10 = 110
+
+ReAct Agent回答:
+好的，我将按照ReAct（Reasoning + Acting）模式来回答你的两个问题。我会先进行推理，然后执行操作（搜索知识库或计算），最后给出答案。
+
+---
+
+### 问题1：什么是MCP协议？
+
+**推理（Reasoning）**：  
+用户问的是“MCP协议”，这是一个技术术语。我需要从知识库中检索关于MCP协议的定义、用途和特点。MCP可能指代多种协议，但在当前技术语境下，最常见的是 **Model Context Protocol（模型上下文协议）**，由Anthropic提出，用于标准化AI模型与外部工具、数据源的交互。
+
+**行动（Acting）**：  
+搜索知识库中关于MCP协议的定义。
+
+**观察（Observation）**：  
+根据知识库，MCP（Model Context Protocol）是一种开放协议，旨在让AI模型（如大型语言模型）能够安全、标准化地访问外部工具、数据库和API。它类似于AI应用的“USB-C接口”，允许开发者将模型连接到各种数据源和功能模块，而无需为每个集成单独编写适配器。MCP的核心是定义了一套消息格式和交互流程，使模型可以动态发现可用工具、调用工具并获取结果。
+
+**回答（Answer）**：  
+MCP协议（Model Context Protocol）是由Anthropic提出的一种开放标准协议，用于让AI模型与外部工具、数据源和API进行标准化交互。它通过定义统一的接口，使模型能够动态发现和调用工具，从而扩展AI的能力，同时保持安全性和可控性。简单来说，MCP就像AI应用的“通用插头”，让模型更容易接入各种外部服务。
+
+---
+
+### 问题2：计算144的平方根
+
+**推理（Reasoning）**：  
+用户要求计算144的平方根。这是一个简单的数学运算。144是一个完全平方数，其平方根是整数。我需要通过计算或已知知识得出结果。
+
+**行动
+Token: 400
+
+============================================================
+  Demo 2: Plan-and-Solve 模式
+============================================================
+Plan-and-Solve Agent回答:
+好的，我将按照 **Plan-and-Solve** 模式来回答这个问题。首先规划回答结构，然后逐条对比。
+
+---
+
+## 一、规划回答结构
+
+1. **背景说明**  
+   - 明确两个模型的身份：DeepSeek V4（假设为DeepSeek系列最新代码模型） vs Qwen3.7（假设为Qwen系列最新代码增强版本）。  
+   - 说明对比维度：代码生成质量、多语言支持、上下文理解、推理能力、效率与成本、生态与工具链。
+
+2. **对比维度划分**  
+   - 维度1：代码正确性与鲁棒性  
+   - 维度2：多语言与框架支持  
+   - 维度3：长上下文与复杂逻辑处理  
+   - 维度4：推理与调试能力  
+   - 维度5：生成速度与资源消耗  
+   - 维度6：社区与工具集成
+
+3. **综合结论**  
+   - 给出各自优势场景与适用建议。
+
+---
+
+## 
+Token: 500
+
+============================================================
+  Demo 3: Agent安全验证
+============================================================
+  [BLOCKED (危险操作)] import os; os.system("rm -rf /")
+  [BLOCKED (危险操作)] eval("__import__('os').system('ls')")
+  [SAFE] 正常的Python代码: print(sum([1,2,3,4,5]))
+
+============================================================
+  4.1 Agent设计模式实验完成!
+</pre></body></html>

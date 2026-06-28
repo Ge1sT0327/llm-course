@@ -1,0 +1,5 @@
+graph LR
+    THOUGHT["Thought<br/>推理思考"] --> ACTION["Action<br/>选择工具+参数"]
+    ACTION --> OBS["Observation<br/>观察工具返回"]
+    OBS -->|"信息不足"| THOUGHT
+    OBS -->|"信息充分"| ANSWER["Final Answer<br/>最终答案"]
