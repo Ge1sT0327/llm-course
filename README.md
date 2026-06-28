@@ -130,13 +130,26 @@ result = client.chat("你好")       # 统一接口
 
 ## 学习路径建议
 
-1. **入门路径** (无 LLM 经验): 1.1 → 1.2 → 1.3 → 1.4 → 2.1 → 2.3
+1. **入门路径** (无 LLM 经验): 1.1 → 1.2.1 → 1.3 → 1.4 → 2.1 → 2.3
 2. **应用开发路径** (有基础): 2.1 → 2.3 → 3.1 → 3.2 → 3.3 → 4.1 → 4.2
 3. **工程化路径** (面向生产): 3.3 → 4.3 → 5.1 → 5.2 → 6.1 → 6.2 → 6.3
 4. **全栈路径** (系统掌握): 按模块顺序完整学习
 
+## 实验验证结果 (2026-06-29, AutoDL)
+
+| 实验 | 结果 | 关键数据 |
+|------|------|---------|
+| 1.4 Prompt Engineering | PASS | 3个模板, JSON结构化输出正确 |
+| 2.3 Function Calling | PASS | 4工具自动调度, 参数提取准确 |
+| 3.x RAG Pipeline | PASS | BGE 4.4s加载, 3.6ms检索, Top-1 100% |
+| 4.1 ReAct Agent | PASS | 多步推理: 搜索+计算 sqrt(256)=16 |
+| 5.1 LoRA Fine-tuning | PASS | 536x压缩, loss 3.76→2.56, 6.1MB adapter |
+| 6.3 Final Project | PASS | 4问答全 Grade A, Agent完整运行 |
+
 ## 参考资料
 
+- 环境配置指南：[DOWNLOAD_GUIDE.md](DOWNLOAD_GUIDE.md)
+- 实验运行脚本：[run_experiments.py](run_experiments.py)
 - 课程完整大纲与参考资料：[大模型应用开发课程大纲与参考资料.docx](大模型应用开发课程大纲与参考资料.docx)
-- 实验运行结果汇总：[实验运行结果汇总.md](实验运行结果汇总.md)
+- 实验运行结果：[experiment_summary.json](experiment_summary.json)
 - 配图生成提示词：[配图生成提示词文档.md](配图生成提示词文档.md)
