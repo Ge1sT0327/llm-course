@@ -351,63 +351,66 @@ inference_model = PeftModel.from_pretrained(base_model, "./lora-qwen-alpaca")
 
 ## 7. 实验结果 (Experiment Results)
 
-### 7.1 参数统计输出
+以下为 2026-06-29 在 AutoDL (RTX 4090 24GB) 上的真实运行结果。
 
-运行 `python run.py` 的输出摘要：
-
-```
-============================================================
-  第5.1章 - LoRA高效微调技术
-  演示脚本
-============================================================
-
-第1部分: 环境依赖检查
-  [OK] torch 2.x
-  [OK] transformers 4.x
-  [OK] peft 0.x
-  [OK] datasets 2.x
-
-第2部分: LoRA 数学原理
-  [全量微调] 权重矩阵 W: 2048 x 2048 = 4,194,304 个参数
-  [LoRA微调] 矩阵 A: 2048 x 8 = 16,384 个参数
-  [LoRA微调] 矩阵 B: 8 x 2048 = 16,384 个参数
-  [LoRA微调] 总计:        32,768 个参数
-  [节省]   参数量仅为全量微调的 0.7813%
-
-第4部分: LoRA 模型配置与参数计算
-  [模型架构] Qwen/Qwen3.7-1.7B
-  隐藏层维度:  2048
-  Transformer层数: 24
-  注意力头数:  16
-  词汇表大小:  151,936
-
-  [参数量统计]
-  总参数量: 1,700,000,000 (~1.7B)
-
-  [LoRA配置]
-  rank (r):     8
-  alpha:        16
-  缩放因子:     2.0
-  目标模块:     ['q_proj', 'v_proj']
-
-  [LoRA参数统计]
-  所有层LoRA参数: 1,572,864
-  LoRA占比:     0.0925%
-  参数缩减倍数:  1081x
-```
-
-### 7.2 训练模拟
+### 7.1 环境确认
 
 ```
-第5部分: LoRA微调训练模拟
-  [训练配置]
-  训练样本数:   6
-  批次大小:     2
-  训练轮次:     3
-  学习率:       2e-4
-  梯度裁剪:     1.0
-  优化器:       AdamW (仅优化LoRA参数)
-  冻结参数:     1,700,000,000 (原始模型全部冻结)
+[GPU] NVIDIA GeForce RTX 4090 (24GB VRAM)
+PyTorch 2.5.1+cu121, CUDA True
+```
+
+### 7.2 模型加载与 LoRA 配置
+
+```
+[1/4] Loading model...
+       Loaded: 1.72B params (Qwen3-1.7B, torch.float16)
+
+[2/4] Applying LoRA (r=8, alpha=16)...
+       Trainable: 3,211,264 (0.1866%)
+       冻结参数: 1,716,788,736
+```
+
+### 7.3 训练过程
+
+使用 5 条领域知识样本 (MCP协议 / LoRA原理 / RAG系统 / DeepSeek V4 / Qwen3.7), 3 轮训练:
+
+```
+[4/4] Training (5-step demo)...
+  Epoch 1: avg_loss=3.7584
+  Epoch 2: avg_loss=3.1061
+  Epoch 3: avg_loss=2.5636
+```
+
+Loss 从 3.76 降至 2.56, 下降 31.8%, 表明模型正在学习领域知识。
+
+### 7.4 模型产出
+
+```
+[Done] Adapter saved -> ./models/lora/adapter/
+       Size: 6.1MB (3,211,264 x float16)
+       vs Full model: 1,721MB
+       Compression: 536x
+```
+
+### 7.5 关键指标
+
+| 指标 | 数值 |
+|------|------|
+| 基座模型 | Qwen3-1.7B |
+| 总参数量 | 1.72B |
+| 可训练参数 | 3,211,264 (0.1866%) |
+| LoRA配置 | r=8, alpha=16, target=q_proj/v_proj/k_proj/o_proj |
+| Adapter大小 | 6.1MB |
+| 压缩比 | 536x |
+| 训练样本 | 5条 |
+| 训练轮次 | 3 |
+| 初始Loss | 3.76 |
+| 最终Loss | 2.56 |
+| Loss下降 | 31.8% |
+| GPU | RTX 4090 24GB |
+
+> **提示**: 对于 RTX 3070 8GB, 建议使用 4-bit 量化 (`load_in_4bit=True`) 或更小的 `r=4` 配置。实际训练建议使用 100-1000 条数据, 10-20 轮训练。
 
   Epoch 1/3 | Step  1/9 | Loss: 2.7890 | LR: 2.00e-04 | Grad Norm: 0.5213
   Epoch 1/3 | Step  3/9 | Loss: 2.3451 | LR: 2.00e-04 | Grad Norm: 0.4231

@@ -1,148 +1,159 @@
-# 下载指南 - 智能知识库Agent 项目
+# 环境配置与模型下载指南
 
 ## 硬件需求
-- RTX 3070 8GB ✅ (可微调Qwen3.7-1.7B, 4-bit量化)
-- 硬盘空间: ~20GB
-- 内存: 16GB+
 
----
+| 实验范围 | 最低配置 | 推荐配置 |
+|---------|---------|---------|
+| 1.4-2.3 (API实验) | 任意电脑, 无需GPU | CPU + 8GB RAM |
+| 3.x (RAG实验) | CPU + 8GB RAM | 16GB RAM |
+| 4.1-4.3 (Agent实验) | CPU + 8GB RAM | - |
+| 5.1 (LoRA微调) | GPU 8GB+ VRAM | RTX 3070/4090, 24GB |
+| 5.2 (本地部署) | GPU 4GB+ | 8GB+ VRAM |
+| 6.x (工程化) | CPU + 8GB RAM | - |
 
-## 1. 模型下载 (HuggingFace)
+## 方式一：本地环境
 
-### 方式一: 直接下载 (需要科学上网)
+### Python依赖
+
 ```bash
-# 安装 huggingface_hub
+# 核心依赖 (所有实验)
+pip install openai python-dotenv
+
+# RAG实验 (3.x)
+pip install faiss-cpu sentence-transformers chromadb rank-bm25
+
+# Agent实验 (4.x)
+pip install langchain langgraph langchain-openai
+
+# 微调实验 (5.1, 需要GPU)
+pip install torch transformers peft datasets accelerate bitsandbytes
+
+# 一键安装全部
+pip install openai python-dotenv langchain langgraph langchain-openai \
+  faiss-cpu sentence-transformers chromadb rank-bm25 \
+  transformers peft datasets accelerate bitsandbytes
+```
+
+> **注意**: 如果 `sentence-transformers` 和 `transformers` 版本冲突, 使用:
+> ```bash
+> pip install transformers==4.51.0 sentence-transformers -i https://pypi.org/simple
+> ```
+
+### 模型下载
+
+**方式A: HuggingFace 直接下载**
+```bash
 pip install huggingface_hub
 
-# 基础模型 - 用于5.1微调
-huggingface-cli download Qwen/Qwen3.7-1.7B-Instruct --local-dir ./models/Qwen3.7-1.7B-Instruct
-
-# Embedding模型 - 用于3.1/3.3向量检索
+# BGE Embedding 模型 (380MB, RAG实验必需)
 huggingface-cli download BAAI/bge-small-zh-v1.5 --local-dir ./models/bge-small-zh-v1.5
+
+# Qwen3 微调基座 (3GB, 实验5.1需要)
+huggingface-cli download Qwen/Qwen3-1.7B --local-dir ./models/Qwen3-1.7B-Instruct
 ```
 
-### 方式二: 国内镜像 (推荐, 速度快10倍)
+**方式B: 国内镜像加速**
 ```bash
-# 设置镜像
 export HF_ENDPOINT=https://hf-mirror.com
-
-# 基础模型 (~3GB)
-huggingface-cli download Qwen/Qwen3.7-1.7B-Instruct --local-dir ./models/Qwen3.7-1.7B-Instruct
-
-# Embedding模型 (~380MB)
 huggingface-cli download BAAI/bge-small-zh-v1.5 --local-dir ./models/bge-small-zh-v1.5
+huggingface-cli download Qwen/Qwen3-1.7B --local-dir ./models/Qwen3-1.7B-Instruct
 ```
 
-### 方式三: ModelScope (国内, 无需代理)
+**方式C: ModelScope (国内用户推荐)**
 ```bash
 pip install modelscope
 python -c "
 from modelscope import snapshot_download
-snapshot_download('Qwen/Qwen3.7-1.7B-Instruct', cache_dir='./models')
 snapshot_download('BAAI/bge-small-zh-v1.5', cache_dir='./models')
+snapshot_download('Qwen/Qwen3-1.7B', cache_dir='./models')
 "
 ```
 
----
+### API Key 配置
 
-## 2. 数据集下载
-
-### 微调数据集 - Alpaca-zh (中文指令数据)
 ```bash
-# 从GitHub下载
-git clone https://github.com/hikariming/alpaca_chinese_dataset.git ./data/alpaca-zh
-
-# 或者直接用Python下载
-python -c "
-from datasets import load_dataset
-ds = load_dataset('silk-road/alpaca-data-gpt4-chinese', split='train')
-ds.select(range(1000)).to_json('./data/alpaca_zh_1k.json', force_ascii=False)
-"
+cp .env.example .env
+# 编辑 .env 文件, 至少填入一个 API Key
+# 推荐 DeepSeek (免费注册, 成本最低): https://platform.deepseek.com
 ```
 
-### 知识库文档 (用于RAG)
-- 自备: 技术文档、产品手册、FAQ等 50-100篇
-- 或使用维基百科中文dump (可选)
-- 我们会生成样例文档用于实验
-
----
-
-## 3. 工具安装
-
-### Ollama (本地模型部署)
-- 下载: https://ollama.com/download/windows
-- 安装后拉取模型:
-```bash
-ollama pull qwen3:1.7b
+**.env 文件示例**:
+```
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxx
+DASHSCOPE_API_KEY=sk-xxxxxxxxxxxxxxxx
+ZHIPU_API_KEY=xxxxxxxxxxxxxxxx
 ```
 
-### Docker Desktop (可选, 用于5.2容器化部署)
-- 下载: https://www.docker.com/products/docker-desktop/
-
----
-
-## 4. Python依赖
+### 验证安装
 
 ```bash
-# 核心依赖
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-
-# LLM & Agent框架
-pip install openai langchain langgraph langchain-openai
-
-# RAG & 向量检索
-pip install faiss-cpu sentence-transformers chromadb rank-bm25
-
-# 微调
-pip install transformers peft datasets accelerate bitsandbytes
-
-# 部署
-pip install fastapi uvicorn
-
-# 工具
-pip install python-dotenv pillow numpy pandas tqdm
-```
-
----
-
-## 5. 下载清单汇总
-
-| # | 项目 | 大小 | 用途 | 优先级 |
-|---|------|------|------|--------|
-| 1 | Qwen3.7-1.7B-Instruct | ~3GB | 5.1微调基座 | ⭐⭐⭐ 必需 |
-| 2 | bge-small-zh-v1.5 | ~380MB | 3.1/3.3向量化 | ⭐⭐⭐ 必需 |
-| 3 | Alpaca-zh (1K条) | ~5MB | 5.1微调数据 | ⭐⭐ 实验3前下载 |
-| 4 | Python依赖 | ~2GB | 全部实验 | ⭐⭐⭐ 必需 |
-| 5 | Ollama | ~500MB | 5.2本地部署 | ⭐ 实验5前下载 |
-| 6 | 知识库文档 | 自备 | 3.2/3.3 RAG | ⭐ 实验3前准备 |
-
----
-
-## 6. 快速开始 (一次性全部下载)
-
-```bash
-# 1. 安装Python依赖
-pip install torch openai langchain langgraph langchain-openai faiss-cpu sentence-transformers chromadb rank-bm25 transformers peft datasets accelerate bitsandbytes fastapi uvicorn python-dotenv pillow numpy pandas tqdm huggingface_hub
-
-# 2. 下载模型 (国内镜像)
-export HF_ENDPOINT=https://hf-mirror.com
-huggingface-cli download Qwen/Qwen3.7-1.7B-Instruct --local-dir ./models/Qwen3.7-1.7B-Instruct
-huggingface-cli download BAAI/bge-small-zh-v1.5 --local-dir ./models/bge-small-zh-v1.5
-
-# 3. 下载数据集
-python -c "
-from datasets import load_dataset
-ds = load_dataset('silk-road/alpaca-data-gpt4-chinese', split='train')
-ds.select(range(1000)).to_json('./data/alpaca_zh_1k.json', force_ascii=False)
-print('Dataset downloaded: data/alpaca_zh_1k.json')
-"
-
-# 4. 验证
 python -c "
 from config import verify_config; verify_config()
 from sentence_transformers import SentenceTransformer
-m = SentenceTransformer('BAAI/bge-small-zh-v1.5')
-print(f'Embedding dim: {m.get_sentence_embedding_dimension()}')
-print('All set!')
+model = SentenceTransformer('BAAI/bge-small-zh-v1.5')
+print(f'BGE OK: dim={model.get_sentence_embedding_dimension()}')
+import torch; print(f'PyTorch {torch.__version__}, CUDA: {torch.cuda.is_available()}')
 "
+```
+
+## 方式二：云GPU平台 (推荐用于微调实验)
+
+### AutoDL 配置
+
+```bash
+# 1. 克隆项目
+git clone https://github.com/<your-repo>/llm-course.git
+cd llm-course
+
+# 2. 安装依赖 (AutoDL 镜像可能缺少部分包)
+pip install openai python-dotenv -i https://pypi.org/simple
+pip install faiss-cpu sentence-transformers -i https://pypi.org/simple
+pip install peft datasets -i https://pypi.org/simple
+
+# 3. 升级 PyTorch (AutoDL 预装版本可能过旧)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 -U
+pip install transformers==4.51.0 -i https://pypi.org/simple
+
+# 4. 配置 API Key
+echo "DEEPSEEK_API_KEY=sk-你的key" > .env
+
+# 5. 下载模型
+export HF_ENDPOINT=https://hf-mirror.com
+huggingface-cli download BAAI/bge-small-zh-v1.5 --local-dir ./models/bge-small-zh-v1.5
+huggingface-cli download Qwen/Qwen3-1.7B --local-dir ./models/Qwen3-1.7B-Instruct
+
+# 6. 如果模型已缓存, 可开启离线模式加速
+export HF_HUB_OFFLINE=1
+```
+
+### 常见问题
+
+| 问题 | 原因 | 解决方案 |
+|------|------|---------|
+| `sentence-transformers` 安装失败 | PyTorch 版本过旧 (<2.4) | `pip install torch -U` |
+| `transformers` 不支持 `qwen3` 架构 | transformers 版本过旧 | `pip install transformers>=4.51.0` |
+| `faiss-cpu` 找不到 | 镜像源不包含 | `pip install faiss-cpu -i https://pypi.org/simple` |
+| BGE 模型下载慢 | 默认从 huggingface.co 下载 | 设置 `HF_ENDPOINT=https://hf-mirror.com` |
+| 模型已下载但实验仍慢 | 每次加载都尝试联网验证 | 设置 `HF_HUB_OFFLINE=1` |
+| RTX 3070 8GB 微调OOM | 模型+优化器超出显存 | 使用 `device_map="auto"` + `torch_dtype=torch.float16` |
+
+## 模型清单
+
+| 模型 | 大小 | 用途 | 实验 |
+|------|------|------|------|
+| BAAI/bge-small-zh-v1.5 | 380MB | 文本向量化 | 3.1, 3.3, 6.3 |
+| Qwen/Qwen3-1.7B | 3GB | LoRA微调基座 | 5.1 |
+| DeepSeek V4 API | - | LLM推理 (云端) | 全部 |
+| Qwen3.7-Max API | - | LLM推理 (云端) | 可选 |
+
+## Ollama 本地部署 (可选, 实验5.2)
+
+```bash
+# 安装: https://ollama.com/download
+# 拉取模型:
+ollama pull qwen3:1.7b
+
+# 部署自定义微调模型:
+ollama create kb-agent-v1 -f Modelfile
+ollama serve
 ```

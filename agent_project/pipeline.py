@@ -73,21 +73,27 @@ class TextChunker:
         self.chunk_overlap = chunk_overlap
 
     def chunk(self, document: Document) -> list[str]:
-        """对文档进行分块"""
+        """对文档进行分块, 添加安全边界防止死循环"""
         text = document.content
+        if len(text) <= self.chunk_size:
+            document.chunks = [text.strip()] if text.strip() else []
+            return document.chunks
         chunks = []
         start = 0
-        while start < len(text):
+        max_iter = len(text) // max(self.chunk_size - self.chunk_overlap, 1) + 2
+        for _ in range(max_iter):
+            if start >= len(text):
+                break
             end = min(start + self.chunk_size, len(text))
-            # 尝试在句号/换行处切割
+            # 尝试在自然断点处切割 (优先中文句号, 兼容英文)
             if end < len(text):
-                for sep in ['。', '.\n', '\n\n', '\n', '，', ' ']:
+                for sep in ['. ', '\n\n', '\n', ' ', '.']:
                     pos = text.rfind(sep, start, end)
-                    if pos > start + self.chunk_size // 2:
-                        end = pos + 1
+                    if pos > start + self.chunk_size // 3:
+                        end = pos + len(sep)
                         break
             chunk = text[start:end].strip()
-            if chunk and len(chunk) > 20:
+            if chunk and len(chunk) > 10:
                 chunks.append(chunk)
             start = end - self.chunk_overlap
         document.chunks = chunks
